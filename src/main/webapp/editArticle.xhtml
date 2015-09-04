@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:view>
+        <h:outputLabel value="Add new article"/>
+        <h:form >
+            <h:outputLabel value="Podaj nowa nazwe: "/>
+            <h:inputText id="name" value="#{articleController.editArticle}"/>
+            <br/>
+            <h:outputLabel value="Podaj nowa cene: "/>
+            <h:inputText id="price" value="#{articleController.newArticle.price}"/>
+            <br/>
+            <h:outputLabel value="Podaj nowy opis artykulu: "/>
+            <h:inputTextarea id="description" value="#{articleController.newArticle.description}"/>
+            <br/>
+            <h:commandButton action="#{articleController.add}" value="Dodaj" />
+            <h:commandButton value="index" action="index?faces-redirect=true"/>
+        </h:form>
+    </f:view>
+</html>
