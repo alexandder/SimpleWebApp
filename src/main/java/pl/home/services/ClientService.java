@@ -15,7 +15,7 @@ public class ClientService {
     EntityManager entityManager;
 
     public List<Client> getAll() {
-        Query query = entityManager.createQuery("SELECT c from Client c");
+        Query query = entityManager.createNamedQuery("Client.findAll");
         return (List<Client>) query.getResultList();
     }
 
@@ -24,7 +24,7 @@ public class ClientService {
     }
 
     public Client find(Long id) {
-        Query query =  entityManager.createQuery("Select c from Client c where c.id = :id");
+        Query query =  entityManager.createNamedQuery("Article.findById");
         query.setParameter("id", id);
         return (Client) query.getSingleResult();
     }

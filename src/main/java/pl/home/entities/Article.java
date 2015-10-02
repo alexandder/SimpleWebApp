@@ -6,8 +6,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Article.findAll", query = "SELECT a FROM Article a"),
+    @NamedQuery(name = "Article.findById", query = "SELECT a FROM Article a WHERE a.id = :id") 
+})
 public class Article implements Serializable {
 
     @Id

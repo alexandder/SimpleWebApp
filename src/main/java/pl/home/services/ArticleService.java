@@ -18,19 +18,16 @@ public class ArticleService {
     @PersistenceContext(name = "app")
     EntityManager entityManager;
 
-    public List<Article> getAll() {
-        Query query = entityManager.createQuery("SELECT a from Article a");
+    public List<Article> getAll() {        
+        Query query = entityManager.createNamedQuery("Article.findAll");
         return (List<Article>) query.getResultList();
     }
-    /*
-    public void editArticle(Long id, String name, Float price, String description) {
-        Query query = entityManager.createQuery("UPDATE Article a SET a.name = :id, a.price = :price, a.description = :description WHERE id = :id");
-        query.setParameter("id", id);
-        query.setParameter("name", id);
-        query.setParameter("price", id);
-        query.setParameter("description", id);
+    
+    public void edit(Article article) {
+        System.out.println("Przekazano artykul o id = " + article.getId() + " do edycji w metodzie edit w articleService.");
+        entityManager.merge(article);
     }
-    */
+    
     public void add(Article a) {
         entityManager.persist(a);
     }
@@ -40,7 +37,7 @@ public class ArticleService {
     }
 
     public Article find(Long id) {
-        Query query = entityManager.createQuery("SELECT a from Article a WHERE a.id = :id");
+        Query query = entityManager.createNamedQuery("Article.findById");
         query.setParameter("id", id);
         return (Article) query.getSingleResult();
     }

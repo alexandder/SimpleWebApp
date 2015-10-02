@@ -5,9 +5,13 @@
  */
 package pl.home.controllers;
 
+import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 import pl.home.entities.Article;
 import pl.home.services.ArticleService;
 
@@ -18,24 +22,46 @@ public class ArticleController {
     @EJB
     ArticleService articleService;
 
-    private Article newArticle = new Article();
+    private Article newArticle;
+    
+    @PostConstruct
+    public void initialize() {
+        newArticle = new Article();
+    }
 
-    public String add() {
+    public void add() {
         articleService.add(newArticle);
-        return "index?faces-redirect=true";
+        addFacesMessage("Dodano nowy artykul do bazy danych!");
     }
-    /*
-    public String editArticle(Long id, String name, Float price, String description) {
-        articleService.editArticle(id, name, price, description);
-        return "index?faces-redirect=true";
+    
+    public List getList() {
+        return articleService.getAll();
     }
-    */
+
     public Article getNewArticle() {
         return newArticle;
     }
 
     public void setNewArticle(Article newArticle) {
         this.newArticle = newArticle;
+    }
+    
+    public String loadToEditArticle() {
+        FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
+        newArticle = articleService.find(Long.MIN_VALUE);
+        return "editArticle?faces-redirect=true";
+    }
+    
+    public void edit() {
+        String ids = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("articleID");
+        Long id = Long.valueOf(ids);
+        newArticle.setId(id);
+        articleService.edit(newArticle);
+        addFacesMessage("Zmieniono dane artykulu!");
+    }
+    
+    public static void addFacesMessage(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, ""));
     }
 
 }

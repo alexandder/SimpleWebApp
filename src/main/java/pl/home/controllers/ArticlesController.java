@@ -8,14 +8,14 @@ package pl.home.controllers;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.inject.Named;
 import pl.home.entities.Article;
 import pl.home.services.ArticleService;
 
 @RequestScoped
-@Named("articlesController")
-public class ArticlesControllers {
+@ManagedBean
+public class ArticlesController {
     
     @EJB
     ArticleService articleService;
@@ -27,8 +27,8 @@ public class ArticlesControllers {
         articles = articleService.getAll();
     }
     
-    public String editArticle(Long id) {
-        return "editArticle?id="+id.toString()+"faces-redirect=true";
+    public String edit() {       
+        return "editArticle?faces-redirect=true";
     }
     
     public String newArticle() {

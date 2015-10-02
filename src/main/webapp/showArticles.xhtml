@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="top">
+                <h2>Lista artykułów w bazie danych</h2>
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form>
+                    <h:dataTable id="articleList" border="1" value="#{articlesController.articles}" var="article" styleClass="center_content">
+                        <h:column>
+                            <f:facet name="header"><h:outputText value="ID" /></f:facet>
+                            <h:outputText value="#{article.id}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header"><h:outputText value="Nazwa" /></f:facet>
+                            <h:outputText value="#{article.name}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header"><h:outputText value="Cena" /></f:facet>
+                            <h:outputText value="#{article.price}"   />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header"><h:outputText value="Opis artykulu" /></f:facet>
+                            <h:inputTextarea value="#{article.description}"  readonly="true" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header"><h:outputText value="Edycja" /></f:facet>
+                            <h:commandButton value="Edytuj" action="#{articleEditController.loadToEdit()}" >
+                                <f:param name="articleID" value="#{article.id}"/>
+                            </h:commandButton>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
