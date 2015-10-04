@@ -8,7 +8,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
-        <title>Facelets Template</title>
+        <title>Simple Web App Lol</title>
     </h:head>
 
     <h:body>
@@ -29,6 +29,7 @@
             </div>
             <div id="content" class="left_content">
                 <ui:insert name="content">Content</ui:insert>
+                <h:messages id="operationMessage" for="operationMessage" infoStyle="color:green" layout="table" />              
             </div>
         </div>
     </h:body>

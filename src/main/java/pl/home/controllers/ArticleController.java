@@ -23,18 +23,29 @@ public class ArticleController {
     ArticleService articleService;
 
     private Article newArticle;
-    
+
     @PostConstruct
     public void initialize() {
         newArticle = new Article();
     }
 
-    public void add() {
+    public String add() {
         articleService.add(newArticle);
-        addFacesMessage("Dodano nowy artykul do bazy danych!");
+        return "showArticles?faces-redirect=true";
     }
-    
-    public List getList() {
+
+    public String delete(Article article) {
+        articleService.delete(article);
+        return "showArticles?faces-redirect=true";
+    }
+
+    public void edit() {
+        String ids = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("articleID");
+        newArticle.setId(Long.valueOf(ids));
+        articleService.edit(newArticle);
+    }
+
+    public List<Article> getList() {
         return articleService.getAll();
     }
 
@@ -44,24 +55,6 @@ public class ArticleController {
 
     public void setNewArticle(Article newArticle) {
         this.newArticle = newArticle;
-    }
-    
-    public String loadToEditArticle() {
-        FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
-        newArticle = articleService.find(Long.MIN_VALUE);
-        return "editArticle?faces-redirect=true";
-    }
-    
-    public void edit() {
-        String ids = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("articleID");
-        Long id = Long.valueOf(ids);
-        newArticle.setId(id);
-        articleService.edit(newArticle);
-        addFacesMessage("Zmieniono dane artykulu!");
-    }
-    
-    public static void addFacesMessage(String message) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, ""));
     }
 
 }

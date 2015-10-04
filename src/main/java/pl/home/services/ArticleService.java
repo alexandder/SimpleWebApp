@@ -5,7 +5,10 @@
  */
 package pl.home.services;
 
+import config.FacesMessageHelper;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -24,22 +27,25 @@ public class ArticleService {
     }
     
     public void edit(Article article) {
-        System.out.println("Przekazano artykul o id = " + article.getId() + " do edycji w metodzie edit w articleService.");
+        Logger logger = Logger.getLogger("articleService");
+        logger.log(Level.INFO, "Koncze edycje artykulu o id = {0}", article.getId());
         entityManager.merge(article);
+        FacesMessageHelper.addFacesMessage("Zmieniono dane artykułu!");
     }
     
     public void add(Article a) {
         entityManager.persist(a);
+        FacesMessageHelper.addFacesMessage("Dodano nowy artykuł!");
     }
 
-    public void delete(Article a) {
-        entityManager.remove(a);
+    public void delete(Article article) {
+        Article toRemove = entityManager.merge(article);
+        entityManager.remove(toRemove);
     }
 
     public Article find(Long id) {
-        Query query = entityManager.createNamedQuery("Article.findById");
-        query.setParameter("id", id);
-        return (Article) query.getSingleResult();
+        Article a = entityManager.find(Article.class, id);        
+        return a;
     }
         
 

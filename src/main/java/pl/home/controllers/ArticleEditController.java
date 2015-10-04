@@ -5,20 +5,16 @@
  */
 package pl.home.controllers;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import pl.home.entities.Article;
 import pl.home.services.ArticleService;
 
-/**
- *
- * @author maciej
- */
 @SessionScoped
 @ManagedBean
 public class ArticleEditController {
@@ -36,18 +32,20 @@ public class ArticleEditController {
         toEditArticle = new Article();
     }
 
-    public void edit() {
-        System.out.println("Rozpoczynam edycje artykulu o id = " + toEditArticle.getId());
-        articleService.edit(toEditArticle);
-        toEditArticle = new Article();
-        addFacesMessage("Zmieniono dane artykulu!");
-    }
-
     public String loadToEdit() {
         String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("articleID");
         toEditArticle = articleService.find(Long.valueOf(id));
-        System.out.println("Zaladowano do edycji artykul o id = " + toEditArticle.getId());
+        Logger logger = Logger.getLogger("articleEditController");                                  // dodalem zeby przetestowac, mozna usunac
+        logger.log(Level.INFO, "Zaladowano do edycji artykul o id = {0}", toEditArticle.getId());   // dodalem zeby przetestowac, mozna usunac
         return "editArticle?faces-redirect=true";
+    }
+
+    public String edit() {
+        Logger logger = Logger.getLogger("articleEditContoller");
+        logger.log(Level.INFO, "Ropoczynam edycje artykulu o id = {0}", toEditArticle.getId());
+        articleService.edit(toEditArticle);
+        toEditArticle = new Article();
+        return "showArticles?faces-redirect=true";
     }
 
     public Article getToEditArticle() {
@@ -58,7 +56,4 @@ public class ArticleEditController {
         this.toEditArticle = toEditArticle;
     }
 
-    public static void addFacesMessage(String message) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, ""));
-    }
 }

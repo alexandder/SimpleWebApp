@@ -16,7 +16,7 @@
 
             <ui:define name="content">
                 <h:form>
-                    <h:dataTable id="clientList" border="1" value="#{clientsController.clients}" var="client" styleClass="center_content">
+                    <h:dataTable id="clientList" border="0" value="#{clientsController.clients}" var="client" styleClass="center_content" cellpadding="5">
                         <h:column>
                             <f:facet name="header"><h:outputText value="ID" /></f:facet>
                             <h:outputText value="#{client.id}" />
@@ -29,8 +29,17 @@
                             <f:facet name="header"><h:outputText value="Nazwisko" /></f:facet>
                             <h:outputText value="#{client.lastName}" />
                         </h:column>
+                        <h:column>
+                            <f:facet name="header"><h:outputText value="Edycja" /></f:facet>
+                            <h:commandButton value="Edytuj" action="#{clientEditController.loadToEdit()}">
+                                <f:param name="clientID" value="#{client.id}" />
+                            </h:commandButton>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header"><h:outputText value="Usuwanie" /></f:facet>
+                            <h:commandButton value="Usuń" action="#{clientController.delete(client)}"/>
+                        </h:column>
                     </h:dataTable>
-
                 </h:form>
             </ui:define>
 
