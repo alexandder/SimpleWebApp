@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="top">
+                <h2>Lista klientów w bazie danych</h2>
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form>
+                    <h:dataTable id="clientList" border="0" value="#{clientsController.clients}" var="client" styleClass="center_content" cellpadding="5">
+                        <h:column>
+                            <f:facet name="header"><h:outputText value="ID" /></f:facet>
+                            <h:outputText value="#{client.id}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header"><h:outputText value="Imię" /></f:facet>
+                            <h:outputText value="#{client.firstName}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header"><h:outputText value="Nazwisko" /></f:facet>
+                            <h:outputText value="#{client.lastName}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header"><h:outputText value="Edycja" /></f:facet>
+                            <h:commandButton value="Edytuj" action="#{clientEditController.loadToEdit()}">
+                                <f:param name="clientID" value="#{client.id}" />
+                            </h:commandButton>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header"><h:outputText value="Usuwanie" /></f:facet>
+                            <h:commandButton value="Usuń" action="#{clientController.delete(client)}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,5 +1,6 @@
 package pl.home.services;
 
+import config.FacesMessageHelper;
 import pl.home.entities.Client;
 
 import javax.ejb.Stateless;
@@ -15,21 +16,27 @@ public class ClientService {
     EntityManager entityManager;
 
     public List<Client> getAll() {
-        Query query = entityManager.createQuery("SELECT c from Client c");
+        Query query = entityManager.createNamedQuery("Client.findAll");
         return (List<Client>) query.getResultList();
     }
 
-    public void add(Client client) {
+    public void add(Client client) {        
         entityManager.persist(client);
+        FacesMessageHelper.addFacesMessage("Dodano nowego klienta do bazy danych!");
     }
 
-    public Client find(Long id) {
-        Query query =  entityManager.createQuery("Select c from Client c where c.id = :id");
-        query.setParameter("id", id);
-        return (Client) query.getSingleResult();
+    public Client find(Long id) {                
+        Client client = entityManager.find(Client.class, id);
+        return client;
     }
 
     public void delete(Client client) {
-        entityManager.remove(client);
+        Client toRemove = entityManager.merge(client);
+        entityManager.remove(toRemove);
+    }
+    
+    public void edit(Client client) {
+        entityManager.merge(client);
+        FacesMessageHelper.addFacesMessage("Zmieniono dane klienta!");
     }
 }

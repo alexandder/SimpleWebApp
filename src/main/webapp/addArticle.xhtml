@@ -5,22 +5,25 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+
     <body>
 
         <ui:composition template="./template.xhtml">
 
             <ui:define name="top">
-                <h2>Formularz dodawania nowego klienta</h2>
+                <h2>Formularz dodawania nowego artykułu</h2>
             </ui:define>
             <ui:define name="content">
                 <h:form>
                     <h:panelGrid columns="2">
-                        <h:outputText value="Imię" styleClass="center_content" />
-                        <h:inputText id="firstName" value="#{clientController.newClient.firstName}" required="true"/>
-                        <h:outputText value="Nazwisko" styleClass="center_content" />
-                        <h:inputText id="lastName" value="#{clientController.newClient.lastName}" required="true" />
+                        <h:outputText value="Podaj nazwę" />
+                        <h:inputText id="name" value="#{articleController.newArticle.name}" required="true" />
+                        <h:outputText value="Podaj cenę" />
+                        <h:inputText id="price" value="#{articleController.newArticle.price}" required="true" />
+                        <h:outputText value="Opis artykułu" />
+                        <h:inputText id="description" value="#{articleController.newArticle.description}" required="true" />
                         <h:panelGroup />
-                        <h:commandButton action="#{clientController.add}" value="Dodaj" />
+                        <h:commandButton action="#{articleController.add}" value="Dodaj artykuł" />
                     </h:panelGrid>
                 </h:form>
                 <h:messages infoStyle="color:green" layout="table" />

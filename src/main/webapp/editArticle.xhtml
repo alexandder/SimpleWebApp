@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="top">
+                <h2>Formularz edycji artykułu</h2>
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form >
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="ID obiektu: "/>
+                        <h:outputText id="id" value="#{articleEditController.toEditArticle.id}" />
+                        <h:outputLabel value="Podaj nową nazwę: "/>
+                        <h:inputText id="name" value="#{articleEditController.toEditArticle.name}" />
+                        <h:outputLabel value="Podaj nową cenę: "/>
+                        <h:inputText id="price" value="#{articleEditController.toEditArticle.price}" />
+                        <h:outputLabel value="Podaj nowy opis artykułu: " />
+                        <h:inputTextarea id="description" value="#{articleEditController.toEditArticle.description}" />
+                        <h:panelGroup />
+                        <h:commandButton action="#{articleEditController.edit()}" value="Edytuj" />
+                    </h:panelGrid>                    
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

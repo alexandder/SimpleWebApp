@@ -5,25 +5,28 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+
     <body>
 
         <ui:composition template="./template.xhtml">
 
             <ui:define name="top">
-                <h2>Formularz dodawania nowego klienta</h2>
+                Formularz edycji klienta
             </ui:define>
+
             <ui:define name="content">
-                <h:form>
+                                <h:form>
                     <h:panelGrid columns="2">
-                        <h:outputText value="Imię" styleClass="center_content" />
-                        <h:inputText id="firstName" value="#{clientController.newClient.firstName}" required="true"/>
-                        <h:outputText value="Nazwisko" styleClass="center_content" />
-                        <h:inputText id="lastName" value="#{clientController.newClient.lastName}" required="true" />
+                        <h:outputLabel value="ID klienta: " />
+                        <h:outputText id="id" value="#{clientEditController.toEditClient.id}" />
+                        <h:outputLabel value="Podaj nowe imię klienta : " />
+                        <h:inputText id="firstName" value="#{clientEditController.toEditClient.firstName}" />
+                        <h:outputLabel value="Podaj nowe nazwisko klienta : " />
+                        <h:inputText id="lastName" value="#{clientEditController.toEditClient.lastName}" />
                         <h:panelGroup />
-                        <h:commandButton action="#{clientController.add}" value="Dodaj" />
+                        <h:commandButton value="Edytuj" action="#{clientEditController.edit()}" />
                     </h:panelGrid>
                 </h:form>
-                <h:messages infoStyle="color:green" layout="table" />
             </ui:define>
 
         </ui:composition>
