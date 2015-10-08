@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="top">
+                <h2>Formularz dodawania nowego zamówienia</h2>
+            </ui:define>
+            <ui:define name="content">
+                <h:form>
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Wybierz klienta : " styleClass="center_content" />
+                        <h:selectOneMenu id="client" value="#{orderController.order.client}">
+                            <f:converter converterId="config.clientConverter" />
+                            <f:selectItems value="#{clientsController.clients}" 
+                                           var="client"
+                                           itemLabel="#{client.firstName} #{client.lastName}"
+                                           itemValue="#{client}" />
+                        </h:selectOneMenu>
+                        
+                        <h:outputText value="Opis zamówienia : " styleClass="center_content" />
+                        <h:inputText id="lastName" value="#{orderController.order.description}" required="true" />
+                        
+                        <h:outputText value="Wybierz artykuły : " styleClass="center_content" />
+                        <h:selectManyListbox id="articleList" value="#{orderController.order.orderArticles}">                            
+                            <f:selectItems value="#{articlesController.articles}"
+                                           var="article"
+                                           itemLabel="#{article.name}"
+                                           itemValue="#{article}" />
+                        </h:selectManyListbox>>
+                        
+                        <h:panelGroup />
+                        <h:commandButton action="#{orderController.add}" value="Dodaj" />
+                    </h:panelGrid>
+                </h:form>
+                <h:messages infoStyle="color:green" layout="table" />
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

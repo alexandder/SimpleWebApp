@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="top">
+                <h2>Formularz dodawania nowego zamówienia</h2>
+            </ui:define>
+            <ui:define name="content">
+                <h:form>
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Wybierz klienta : " />
+                        <h:selectOneMenu value="#{orderController.order.client}">
+                            <f:selectItems value="#{clientsController.clients}" 
+                                           var="client"
+                                           itemValue="#{client}"
+                                           itemLabel="#{client.firstName} #{client.lastName}}"/>
+                        </h:selectOneMenu>
+                        <h:outputText value="Podaj opis zamówienia : " />
+                        <h:inputText id="price" value="#{orderController.order.description}" required="true" />
+                        <h:outputText value="Opis artykułu" />
+                        <h:selectManyListbox value="#{orderController.order.orderArticles}">
+                            <f:selectItems value="#{articlesController.articles}"
+                                           var="article"
+                                           itemValue="#{article}"
+                                           itemLabel="#{article.name}" />
+                        </h:selectManyListbox>
+                        <h:panelGroup />
+                        <h:commandButton action="#{articleController.add}" value="Dodaj artykuł" />
+                    </h:panelGrid>
+                </h:form>
+                <h:messages infoStyle="color:green" layout="table" />
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -5,10 +5,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.Collection;
+import javax.persistence.Column;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "client")
 @NamedQueries({
     @NamedQuery(name = "Client.findAll", query = "SELECT c FROM Client c"),
     @NamedQuery(name = "Client.findById", query = "SELECT c FROM Client c WHERE c.id = :id"),
@@ -19,10 +24,14 @@ public class Client implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "clientID")
     private Long id;
 
     private String firstName;
     private String lastName;
+
+    @OneToMany(mappedBy = "client")
+    private Collection<ClientOrder> clientOrders;
 
     public Client() {
     }
@@ -56,16 +65,34 @@ public class Client implements Serializable {
         this.lastName = lastName;
     }
 
+    public Collection<ClientOrder> getClientOrders() {
+        return clientOrders;
+    }
+
+    public void setClientOrders(Collection<ClientOrder> clientOrders) {
+        this.clientOrders = clientOrders;
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Client client = (Client) o;
 
-        if (firstName != null ? !firstName.equals(client.firstName) : client.firstName != null) return false;
-        if (id != null ? !id.equals(client.id) : client.id != null) return false;
-        if (lastName != null ? !lastName.equals(client.lastName) : client.lastName != null) return false;
+        if (firstName != null ? !firstName.equals(client.firstName) : client.firstName != null) {
+            return false;
+        }
+        if (id != null ? !id.equals(client.id) : client.id != null) {
+            return false;
+        }
+        if (lastName != null ? !lastName.equals(client.lastName) : client.lastName != null) {
+            return false;
+        }
 
         return true;
     }
@@ -78,5 +105,3 @@ public class Client implements Serializable {
         return result;
     }
 }
-
-
