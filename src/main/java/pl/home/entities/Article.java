@@ -23,8 +23,8 @@ import javax.persistence.Table;
 public class Article implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "articleID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
