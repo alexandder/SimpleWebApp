@@ -83,7 +83,6 @@ public class Article implements Serializable {
         int hash = 5;
         hash = 61 * hash + Objects.hashCode(this.id);
         hash = 61 * hash + Objects.hashCode(this.name);
-        hash = 61 * hash + Objects.hashCode(this.ordersCollection);
         hash = 61 * hash + Float.floatToIntBits(this.price);
         hash = 61 * hash + Objects.hashCode(this.description);
         return hash;

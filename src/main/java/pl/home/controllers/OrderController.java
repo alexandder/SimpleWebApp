@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import pl.home.entities.Article;
 import pl.home.entities.ClientOrder;
 import pl.home.services.OrderService;
 
@@ -45,6 +46,14 @@ public class OrderController {
 
     public void setOrder(ClientOrder order) {
         this.order = order;
+    }
+    
+    public float getOrderPrice(ClientOrder clientOrder) {
+        float sum = 0;
+        for (Article article : clientOrder.getOrderArticles()) {
+            sum += article.getPrice();
+        }
+        return sum;
     }
 
 }

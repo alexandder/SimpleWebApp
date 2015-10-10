@@ -28,12 +28,13 @@
                         <h:inputText id="lastName" value="#{orderController.order.description}" required="true" />
                         
                         <h:outputText value="Wybierz artykuły : " styleClass="center_content" />
-                        <h:selectManyListbox id="articleList" value="#{orderController.order.orderArticles}">                            
+                        <h:selectManyListbox id="articleList" value="#{orderController.order.orderArticles}" converter="articleConverter">                            
                             <f:selectItems value="#{articlesController.articles}"
                                            var="article"
                                            itemLabel="#{article.name}"
-                                           itemValue="#{article}" />
-                        </h:selectManyListbox>>
+                                           itemValue="#{article}" >
+                            </f:selectItems>
+                        </h:selectManyListbox>
                         
                         <h:panelGroup />
                         <h:commandButton action="#{orderController.add}" value="Dodaj" />

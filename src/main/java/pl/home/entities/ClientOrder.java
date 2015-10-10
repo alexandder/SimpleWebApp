@@ -38,7 +38,7 @@ public class ClientOrder implements Serializable {
     @Column(name = "orderDescription")
     private String description;
 
-    @JoinTable(name = "ORDER",
+    @JoinTable(name = "CLIENT_ORDER",
             joinColumns = {
                 @JoinColumn(name = "orderID",
                         referencedColumnName = "orderID")},

@@ -16,7 +16,7 @@
 
             <ui:define name="content">
                 <h:form>
-                    <h:dataTable id="orderList" border="0" value="#{ordersController.orderList}" var="order" styleClass="center_content" cellpadding="5">
+                    <h:dataTable id="orderList" border="0" value="#{ordersController.orderList}" var="order" styleClass="table" cellpadding="5">
                         <h:column>
                             <f:facet name="header"><h:outputText value="ID" /></f:facet>
                             <h:outputText value="#{order.id}" />
@@ -30,8 +30,15 @@
                             <h:outputText value="#{order.description}" />
                         </h:column>
                         <h:column>
-                            <f:facet name="header"><h:outputText value="Lista artykułów w zamówieniu : " /></f:facet>
-                            <h:outputText value="#{order.orderArticles}" />
+                            <f:facet name="header"><h:outputText value="Zamówione artykuły" /></f:facet>
+                            <ui:repeat value="#{order.orderArticles}" var="article">
+                                <h:outputText value="#{article.name}" />
+                                <br />
+                            </ui:repeat>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header"><h:outputText value="Wartość zamówienia" /></f:facet>
+                            <h:outputText value="#{orderController.getOrderPrice(order)}" />
                         </h:column>
                     </h:dataTable>
                 </h:form>
