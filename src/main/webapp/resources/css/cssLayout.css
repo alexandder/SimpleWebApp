@@ -58,4 +58,12 @@
   text-decoration : underline;
 }
 
+.table {
+    text-align: center;
+    background-color: #dddddd;
+    border: 0px;
+    padding: 5px;
+    border-spacing: 15px;
+}
+
 
